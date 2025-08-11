@@ -41,7 +41,7 @@ const EstimateCard: React.FC<EstimateCardProps> = ({
             }}
         >
             <View className="mb-2 flex-row items-center justify-between">
-                <Text className="text-lg font-bold text-gray-900 max-w-[60%]" numberOfLines={1}>
+                <Text className="text-lg font-bold text-primary max-w-[60%]" numberOfLines={1}>
                     {title}
                 </Text>
                 <Text className="text-lg font-bold text-primary-500">₵{cost.toLocaleString()}</Text>
@@ -76,7 +76,6 @@ const EstimateCard: React.FC<EstimateCardProps> = ({
                     iconPosition="left"
                     variant="outline"
                     size="sm"
-                    iconColor="#ff6347"
                     className="flex-1"
                     onPress={() => alert('Edit button clicked!')}
                     accessibilityLabel="Edit estimate"
@@ -87,7 +86,6 @@ const EstimateCard: React.FC<EstimateCardProps> = ({
                     iconPosition="left"
                     variant="outline"
                     size="sm"
-                    iconColor="#ff6347"
                     className="flex-1"
                     onPress={() => alert('Export button clicked!')}
                     accessibilityLabel="Export estimate"
@@ -98,7 +96,6 @@ const EstimateCard: React.FC<EstimateCardProps> = ({
                     iconPosition="left"
                     variant="outline"
                     size="sm"
-                    iconColor="#ff6347"
                     className="flex-1"
                     onPress={() => alert('Share button clicked!')}
                     accessibilityLabel="Share estimate"

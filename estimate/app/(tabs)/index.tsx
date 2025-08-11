@@ -1,7 +1,7 @@
 import { Text, View, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Button } from '../../components/Button';
 import EstimateCard from '../../components/ui/EstimateCard';
+import SectionHeader from '../../components/ui/SectionHeader'
 
 type Estimate = {
     id: string | number;
@@ -55,17 +55,16 @@ export default function Index() {
     ]; // Replace with actual data fetching logic
 
     return (
-        <View className="m-4 flex-1">
-            <View className="mb-4 flex-row items-center justify-between">
-                <Text className="text-lg font-bold">Recent Estimates</Text>
-                <Button
-                    title="New"
-                    icon="add"
-                    onPress={() => {
-                        router.push('./settings');
-                    }}
-                />
-            </View>
+        <View className="bg-background m-4 flex-1">
+            <SectionHeader
+                title="Recent Estimates"
+                actionLabel="New"
+                labelClassName="bg-primary"
+                iconClassName='text-primary'
+                onAction={() => {
+                    router.push('./settings'); // Navigate to settings or new estimate screen
+                }}
+            />
 
             <FlatList
                 data={estimates}

@@ -22,6 +22,13 @@ const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {
     lg: 'px-6 py-3 text-lg',
 };
 
+// Use Tailwind config colors for icon and text
+const iconColors: Record<NonNullable<ButtonProps['variant']>, string> = {
+    primary: '#fff', // text-white
+    secondary: '#8a6a2f', // primary
+    outline: '#8a6a2f', // primary
+};
+
 export function Button({
     title,
     loading = false,
@@ -36,35 +43,42 @@ export function Button({
     size = 'md',
     ...props
 }: ButtonProps) {
-    // Use #ff6347 as primary, fallback to tailwind if needed
     const base = 'flex-row items-center justify-center rounded-lg';
     const variants: Record<typeof variant, string> = {
-        primary: 'bg-[#ff6347] active:bg-[#e5533d]',
-        secondary: 'bg-gray-200 active:bg-gray-300 dark:bg-gray-700 dark:active:bg-gray-600',
-        outline: 'border border-[#ff6347] bg-transparent',
+        primary: 'bg-primary active:bg-primary-dark',
+        secondary: 'bg-secondary active:bg-secondary-light',
+        outline: 'border border-primary bg-transparent',
     };
     const textVariants: Record<typeof variant, string> = {
         primary: 'text-white font-semibold',
-        secondary: 'text-gray-900 dark:text-gray-100 font-semibold',
-        outline: 'text-[#ff6347] font-semibold',
+        secondary: 'text-primary font-semibold',
+        outline: 'text-primary font-semibold',
     };
+
+    // Use iconColor prop if provided, otherwise use the default for the variant
+    const resolvedIconColor = iconColor || iconColors[variant];
 
     return (
         <Pressable
-            className={twMerge(base, sizeStyles[size], variants[variant], disabled && 'opacity-50', className)}
+            className={twMerge(
+                base,
+                sizeStyles[size],
+                variants[variant],
+                disabled && 'opacity-50',
+                className
+            )}
             disabled={disabled || loading}
             accessibilityRole="button"
-            {...props}
-        >
+            {...props}>
             {loading ? (
-                <ActivityIndicator color={variant === 'primary' ? '#fff' : '#ff6347'} />
+                <ActivityIndicator color={iconColors[variant]} />
             ) : (
                 <>
                     {icon && iconPosition === 'left' && (
                         <Ionicons
                             name={icon}
                             size={iconSize}
-                            color={iconColor || (variant === 'primary' ? '#fff' : '#ff6347')}
+                            color={resolvedIconColor}
                             style={{ marginRight: 8 }}
                             accessibilityElementsHidden
                             importantForAccessibility="no"
@@ -77,7 +91,7 @@ export function Button({
                         <Ionicons
                             name={icon}
                             size={iconSize}
-                            color={iconColor || (variant === 'primary' ? '#fff' : '#ff6347')}
+                            color={resolvedIconColor}
                             style={{ marginLeft: 8 }}
                             accessibilityElementsHidden
                             importantForAccessibility="no"
@@ -90,4 +104,3 @@ export function Button({
 }
 
 Button.displayName = 'Button';
-
