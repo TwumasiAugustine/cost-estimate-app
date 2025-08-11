@@ -1,6 +1,6 @@
 import { Pressable, Text, ActivityIndicator, PressableProps } from 'react-native';
 import { twMerge } from 'tailwind-merge';
-
+import { Ionicons } from '@expo/vector-icons';
 
 export type ButtonProps = PressableProps & {
     title: string;
@@ -9,6 +9,17 @@ export type ButtonProps = PressableProps & {
     variant?: 'primary' | 'secondary' | 'outline';
     className?: string;
     textClassName?: string;
+    icon?: React.ComponentProps<typeof Ionicons>['name'];
+    iconPosition?: 'left' | 'right';
+    iconSize?: number;
+    iconColor?: string;
+    size?: 'sm' | 'md' | 'lg';
+};
+
+const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-base',
+    lg: 'px-6 py-3 text-lg',
 };
 
 export function Button({
@@ -18,32 +29,65 @@ export function Button({
     variant = 'primary',
     className = '',
     textClassName = '',
+    icon,
+    iconPosition = 'left',
+    iconSize = 20,
+    iconColor,
+    size = 'md',
     ...props
 }: ButtonProps) {
-    const base = 'flex-row items-center justify-center px-4 py-2 rounded-lg';
+    // Use #ff6347 as primary, fallback to tailwind if needed
+    const base = 'flex-row items-center justify-center rounded-lg';
     const variants: Record<typeof variant, string> = {
-        primary: 'bg-blue-600 active:bg-blue-700',
+        primary: 'bg-[#ff6347] active:bg-[#e5533d]',
         secondary: 'bg-gray-200 active:bg-gray-300 dark:bg-gray-700 dark:active:bg-gray-600',
-        outline: 'border border-blue-600 bg-transparent',
+        outline: 'border border-[#ff6347] bg-transparent',
     };
     const textVariants: Record<typeof variant, string> = {
         primary: 'text-white font-semibold',
         secondary: 'text-gray-900 dark:text-gray-100 font-semibold',
-        outline: 'text-blue-600 font-semibold',
+        outline: 'text-[#ff6347] font-semibold',
     };
 
     return (
         <Pressable
-            className={twMerge(base, variants[variant], disabled && 'opacity-50', className)}
+            className={twMerge(base, sizeStyles[size], variants[variant], disabled && 'opacity-50', className)}
             disabled={disabled || loading}
-            {...props}>
+            accessibilityRole="button"
+            {...props}
+        >
             {loading ? (
-                <ActivityIndicator color={variant === 'primary' ? '#fff' : '#2563eb'} />
+                <ActivityIndicator color={variant === 'primary' ? '#fff' : '#ff6347'} />
             ) : (
-                <Text className={twMerge('text-base', textVariants[variant], textClassName)}>
-                    {title}
-                </Text>
+                <>
+                    {icon && iconPosition === 'left' && (
+                        <Ionicons
+                            name={icon}
+                            size={iconSize}
+                            color={iconColor || (variant === 'primary' ? '#fff' : '#ff6347')}
+                            style={{ marginRight: 8 }}
+                            accessibilityElementsHidden
+                            importantForAccessibility="no"
+                        />
+                    )}
+                    <Text className={twMerge('text-base', textVariants[variant], textClassName)}>
+                        {title}
+                    </Text>
+                    {icon && iconPosition === 'right' && (
+                        <Ionicons
+                            name={icon}
+                            size={iconSize}
+                            color={iconColor || (variant === 'primary' ? '#fff' : '#ff6347')}
+                            style={{ marginLeft: 8 }}
+                            accessibilityElementsHidden
+                            importantForAccessibility="no"
+                        />
+                    )}
+                </>
             )}
         </Pressable>
     );
 }
+
+Button.displayName = 'Button';
+
