@@ -8,7 +8,7 @@ export default function EstimateActions() {
         title="Generate PDF"
         icon="document-outline"
         variant="secondary"
-        className="flex-1 bg-[#bfa054]"
+        className="flex-1 bg-primary"
         textClassName="text-white"
         onPress={() => {alert('Generate PDF clicked!')}}
       />
@@ -16,8 +16,8 @@ export default function EstimateActions() {
         title="Share"
         icon="share-social-outline"
         variant="outline"
-        className="flex-1 border-[#bfa054] bg-white"
-        textClassName="text-[#bfa054]"
+        className="flex-1 border-primary bg-white"
+        textClassName="text-primary"
         iconColor="#bfa054"
         onPress={() => {alert('Share pressed!')}}
       />

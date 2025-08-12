@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ appName = 'EstimateApp', icons, onMenuP
                 <TouchableOpacity
                     onPress={() => router.push('/(tabs)/settings')}
                     className="ml-2 rounded-full bg-gray-800/60 p-1 active:bg-gray-800">
-                    {React.cloneElement(right as React.ReactElement<any>, { color: '#ff6347' })}
+                    {React.cloneElement(right as React.ReactElement<any>, { color: '#8a6a2f' })}
                 </TouchableOpacity>
             );
         }
@@ -46,10 +46,10 @@ const Header: React.FC<HeaderProps> = ({ appName = 'EstimateApp', icons, onMenuP
                 <TouchableOpacity
                     onPress={onMenuPress}
                     className="mr-2 rounded-full bg-gray-800/60 p-1 active:bg-gray-800">
-                    <Ionicons name="menu" size={24} color="#ff6347" />
+                    <Ionicons name="menu" size={24} color="#8a6a2f" />
                 </TouchableOpacity>
             ) : (
-                <Ionicons name="calculator" size={26} color="#ff6347" className="mr-2" />
+                <Ionicons name="calculator" size={26} color="#8a6a2f" className="mr-2" />
             )}
 
             {/* Center: App Name */}

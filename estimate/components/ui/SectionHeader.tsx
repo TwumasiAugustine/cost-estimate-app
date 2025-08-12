@@ -15,19 +15,18 @@ export default function SectionHeader({
     actionLabel,
     onAction,
     labelClassName,
-    iconClassName = 'text-primary',
+    iconClassName,
 }: SectionHeaderProps) {
     return (
         <View className="mb-2 flex-row items-center justify-between p-2">
-            <Text className="text-2xl font-bold text-primary">{title}</Text>
+            <Text className="text-primary text-2xl font-bold">{title}</Text>
             {actionLabel && (
-                <TouchableOpacity onPress={onAction} className="flex-row items-center">
-                    <Ionicons name="add" size={18} className={iconClassName} />
-                    <Text
-                        className={`ml-1 font-semibold text-lg ${labelClassName ?? ''}`}
-                    >
-                        {actionLabel}
-                    </Text>
+                <TouchableOpacity
+                    onPress={onAction}
+                    className={`${labelClassName ?? ''} flex-row items-center`}
+                >
+                    <Ionicons name="add" size={18} color={iconClassName} />
+                    <Text className={`ml-1 text-lg ${iconClassName} font-semibold`}>{actionLabel}</Text>
                 </TouchableOpacity>
             )}
         </View>

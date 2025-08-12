@@ -52,22 +52,58 @@ export default function Index() {
             ],
             title: 'Estimate 3',
         },
+        {
+            id: 4,
+            clientName: 'Client D',
+            cost: 300,
+            status: 'Completed',
+            createdAt: '2023-01-04',
+            items: [
+                { name: 'Item 5', quantity: 2, price: 100 },
+                { name: 'Item 6', quantity: 1, price: 100 },
+            ],
+            title: 'Estimate 4',
+        },
+        {
+            id: 5,
+            clientName: 'Client E',
+            cost: 250,
+            status: 'In Progress',
+            createdAt: '2023-01-05',
+            items: [
+                { name: 'Item 7', quantity: 5, price: 50 },
+            ],
+            title: 'Estimate 5',
+        },
+        {
+            id: 6,
+            clientName: 'Client F',
+            cost: 175,
+            status: 'Pending',
+            createdAt: '2023-01-06',
+            items: [
+                { name: 'Item 8', quantity: 2, price: 75 },
+                { name: 'Item 9', quantity: 1, price: 25 },
+            ],
+            title: 'Estimate 6',
+        }
     ]; // Replace with actual data fetching logic
 
     return (
-        <View className="bg-background m-4 flex-1">
+        <View className="flex-1 bg-background px-4 pt-4">
             <SectionHeader
                 title="Recent Estimates"
                 actionLabel="New"
-                labelClassName="bg-primary"
-                iconClassName='text-primary'
+                labelClassName="bg-primary rounded-md px-3 py-2"
+                iconClassName="text-gray-100"
                 onAction={() => {
-                    router.push('./settings'); // Navigate to settings or new estimate screen
+                    router.push('/(tabs)/settings'); 
                 }}
             />
 
             <FlatList
                 data={estimates}
+                showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => <EstimateCard {...item} />}
                 ListEmptyComponent={

@@ -25,14 +25,14 @@ export default function ProductCard({ id, name, price, unit, image }: ProductCar
             <Text className="mb-2 text-gray-500">{price > 0 ? `₵${price} ${unit}` : unit}</Text>
             <View className="flex-row items-center justify-between">
                 <TouchableOpacity onPress={() => setQty(Math.max(0, qty - 1))} className="p-1">
-                    <Ionicons name="remove-circle-outline" size={22} color="#ff6347" />
+                    <Ionicons name="remove-circle-outline" size={22} color="#8a6a2f" />
                 </TouchableOpacity>
                 <Text className="font-semibold text-gray-700">{qty}</Text>
                 <TouchableOpacity onPress={() => setQty(qty + 1)} className="p-1">
-                    <Ionicons name="add-circle" size={22} color="#ff6347" />
+                    <Ionicons name="add-circle" size={22} color="#8a6a2f" />
                 </TouchableOpacity>
                 <TouchableOpacity className="ml-2 p-1">
-                    <Ionicons name="heart-outline" size={20} color="#ff6347" />
+                    <Ionicons name="heart-outline" size={20} color="#8a6a2f" />
                 </TouchableOpacity>
             </View>
         </View>

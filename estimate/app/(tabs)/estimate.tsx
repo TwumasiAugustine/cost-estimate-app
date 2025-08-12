@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useRef } from 'react';
+import { View, TextInput, ScrollView,  Platform } from 'react-native';
 import EmptyCard from '../../components/ui/EmptyCard';
 import EstimateActions from '../../components/ui/EstimateActions';
 import SectionHeader from '../../components/ui/SectionHeader';
@@ -11,22 +10,35 @@ export default function Estimate() {
     const [clientName, setClientName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [notes, setNotes] = useState('');
+    const scrollRef = useRef<ScrollView>(null);
 
     // Placeholder values
     const materials = 0;
     const labor = 0;
 
-    return (
-        <ScrollView className="bg-background flex-1 px-4 pt-4" keyboardShouldPersistTaps="handled">
-            {/* Header */}
-            <View className="mb-4 flex-row items-center justify-between">
-                <Text className="text-primary text-xl font-bold">New Estimate</Text>
-                <TouchableOpacity className="flex-row items-center">
-                    <Ionicons name="save-outline" size={22} color="#bfa054" />
-                    <Text className="text-secondary ml-1 font-semibold">Save</Text>
-                </TouchableOpacity>
-            </View>
+    // Scroll to NotesBox when focused
+    const handleNotesFocus = () => {
+        setTimeout(() => {
+            scrollRef.current?.scrollToEnd({ animated: true });
+        }, 200);
+    };
 
+    return (
+        <ScrollView
+            ref={scrollRef}
+            className="bg-background flex-1 px-4 pt-4"
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 32 : 100 }}>
+            {/* Header */}
+            <SectionHeader
+                title="New Estimate"
+                actionLabel="Save"
+                labelClassName="bg-primary rounded-md px-3 py-2"
+                iconClassName="text-gray-100"
+                onAction={() => {
+                    alert('Save button clicked!');
+                }}
+            />
             {/* Client/Project Inputs */}
             <View className="mb-4 flex-row gap-3">
                 <TextInput
@@ -51,7 +63,9 @@ export default function Estimate() {
             <EstimateSummary materials={materials} labor={labor} />
 
             {/* Materials Section */}
-            <SectionHeader title="Materials" actionLabel="Add Item" onAction={() => {}} />
+            <SectionHeader title="Materials" actionLabel="Add Item" onAction={() => {
+                alert('Add Item clicked');
+            }} />
             <EmptyCard
                 message="No materials added yet"
                 actionLabel="Browse Catalog"
@@ -59,11 +73,13 @@ export default function Estimate() {
             />
 
             {/* Labor Section */}
-            <SectionHeader title="Labor" actionLabel="Add Labor" onAction={() => {}} />
-            <EmptyCard message="No labor costs added yet" />
+            <SectionHeader title="Workmanship" actionLabel="Add Workmanship" labelClassName="text-primary"  onAction={() => {
+              alert('Add Workmanship clicked');
+            }} />
+            <EmptyCard message="No workmanship costs added yet" />
 
             {/* Notes */}
-            <NotesBox value={notes} onChange={setNotes} />
+            <NotesBox value={notes} onChange={setNotes} onFocus={handleNotesFocus} />
 
             {/* Actions */}
             <EstimateActions />

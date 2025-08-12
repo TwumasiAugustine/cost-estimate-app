@@ -44,7 +44,7 @@ const EstimateCard: React.FC<EstimateCardProps> = ({
                 <Text className="text-lg font-bold text-primary max-w-[60%]" numberOfLines={1}>
                     {title}
                 </Text>
-                <Text className="text-lg font-bold text-primary-500">₵{cost.toLocaleString()}</Text>
+                <Text className="text-lg font-bold text-primary">₵{cost.toLocaleString()}</Text>
             </View>
             <View className="mb-1 flex-row items-center justify-between">
                 <Text className="text-sm text-gray-700" numberOfLines={1}>
